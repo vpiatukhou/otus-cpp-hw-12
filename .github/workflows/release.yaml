@@ -13,7 +13,6 @@ jobs:
         uses: MarkusJx/install-boost@v2.4.4
         with:
           boost_version: 1.81.0
-          boost_install_dir: /usr/local/
       - uses: actions/checkout@v2
         with:
           submodules: true
