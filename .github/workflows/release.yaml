@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
+      - run: ls /home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost
       - name: build and test
         run: |
           cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE -DBoost_INCLUDE_DIR=/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost && \
