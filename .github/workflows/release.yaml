@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: install boost
-        uses: MarkusJx/install-boost@v2.4.4
-        with:
-          boost_version: 1.81.0
+        run: |
+          cd /usr/local/ && \
+          wget https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2 && \
+          tar --bzip2 -xf boost_1_81_0.tar.bz2 && \
+          rm boost_1_81_0.tar.bz2
       - uses: actions/checkout@v2
         with:
           submodules: true
