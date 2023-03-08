@@ -17,6 +17,7 @@ if (Boost_FOUND)
     target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIRS})
 else()
     target_include_directories(mapreduce PRIVATE ${BOOST_ROOT})
+    message("BOOST ROOT: ${BOOST_ROOT}")
 endif()
 
 target_link_libraries(mapreduce ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
