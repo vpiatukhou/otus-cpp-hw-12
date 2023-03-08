@@ -10,11 +10,11 @@ add_library(mapreduce STATIC FileReader.cpp
 add_executable(mapreduce_cli Main.cpp)
 set_target_properties(mapreduce_cli PROPERTIES OUTPUT_NAME mapreduce) #rename the executable to "mapreduce"
 
-set(Boost_USE_STATIC_LIBS ON)
-#find_package(Boost 1.81.0 EXACT)
+if(NOT DEFINED Boost_INCLUDE_DIR)
+    find_package(Boost 1.81.0 EXACT)
+endif()
 
-message("Boost_INCLUDE_DIR=${Boost_INCLUDE_DIR}")
-target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIRS})
+target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIR})
 
 target_link_libraries(mapreduce ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(mapreduce_cli PRIVATE mapreduce)
