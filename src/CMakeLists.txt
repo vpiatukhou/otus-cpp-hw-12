@@ -11,7 +11,7 @@ add_executable(mapreduce_cli Main.cpp)
 set_target_properties(mapreduce_cli PROPERTIES OUTPUT_NAME mapreduce) #rename the executable to "mapreduce"
 
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost 1.81.0 EXACT)
+#find_package(Boost 1.81.0 EXACT)
 
 message("Boost_INCLUDE_DIR=${Boost_INCLUDE_DIR}")
 target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIRS})
