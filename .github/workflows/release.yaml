@@ -9,12 +9,10 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-20.04
     steps:
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install libboost-all-dev -y
-      - name: Build and test
       - uses: actions/checkout@v2
         with:
           submodules: true
+      - run: sudo apt-get update && sudo apt-get install libboost-all-dev -y
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE
       - run: cmake --build .
       - run: ctest
