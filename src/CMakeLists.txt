@@ -15,9 +15,9 @@ find_package(Boost 1.81.0 EXACT)
 
 if (Boost_FOUND)
     target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIRS})
-else()
-    target_include_directories(mapreduce PRIVATE ${BOOST_ROOT})
-    message("BOOST ROOT: ${BOOST_ROOT}")
+else() #used by GitHub Actions. Please see .github\workflows\release.yaml
+    target_include_directories(mapreduce PRIVATE $ENV{BOOST_ROOT})
+    message("BOOST ROOT: $EVN{BOOST_ROOT}")
 endif()
 
 target_link_libraries(mapreduce ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
