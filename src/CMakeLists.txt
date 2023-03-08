@@ -13,12 +13,8 @@ set_target_properties(mapreduce_cli PROPERTIES OUTPUT_NAME mapreduce) #rename th
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.81.0 EXACT)
 
-if (Boost_FOUND)
-    target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIRS})
-else() #used by GitHub Actions. Please see .github/workflows/release.yaml
-    target_include_directories(mapreduce PRIVATE $ENV{BOOST_ROOT})
-    message("BOOST ROOT: " $ENV{BOOST_ROOT})
-endif()
+message("DBoost_INCLUDE_DIR=${DBoost_INCLUDE_DIR}")
+target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIRS})
 
 target_link_libraries(mapreduce ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(mapreduce_cli PRIVATE mapreduce)
