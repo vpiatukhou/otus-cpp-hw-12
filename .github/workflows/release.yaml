@@ -9,14 +9,13 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-20.04
     steps:
+      - name: Install dependencies
+      - run: sudo apt-get update && sudo apt-get install libboost-all-dev -y
+      - name: Build and test
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - run: cd /usr/local/
-      - run: wget https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2 && \
-             tar --bzip2 -xf boost_1_81_0.tar.bz2 && \
-             rm boost_1_81_0.tar.bz2
-      - run: cd / && cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE
+      - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE
       - run: cmake --build .
       - run: ctest
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=FALSE
