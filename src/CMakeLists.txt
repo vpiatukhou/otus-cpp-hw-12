@@ -13,7 +13,7 @@ set_target_properties(mapreduce_cli PROPERTIES OUTPUT_NAME mapreduce) #rename th
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.81.0 EXACT)
 
-message("DBoost_INCLUDE_DIR=${DBoost_INCLUDE_DIR}")
+message("Boost_INCLUDE_DIR=${Boost_INCLUDE_DIR}")
 target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIRS})
 
 target_link_libraries(mapreduce ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
