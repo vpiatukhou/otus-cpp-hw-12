@@ -18,12 +18,12 @@ jobs:
           submodules: true
       - name: build and test
         run: |
-          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE -DBoost_INCLUDE_DIR=/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost/boost/include && \
+          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE -DBoost_INCLUDE_DIR=/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost && \
           cmake --build . && \
           ctest
       - name: build for release
         run: |
-          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=FALSE -DBoost_INCLUDE_DIR=/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost/boost/include && \
+          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=FALSE -DBoost_INCLUDE_DIR=/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost && \
           cmake --build . --target package
       - name: create release
         id: create_release
