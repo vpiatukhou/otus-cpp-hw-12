@@ -13,6 +13,11 @@ jobs:
         with:
           submodules: true
       - run: sudo apt-get update && sudo apt-get install libboost-all-dev -y
+      - run: cd /usr/local/
+      - run: wget https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2 && \
+             /bin/tar --bzip2 -xf boost_1_81_0.tar.bz2 && \
+             rm boost_1_81_0.tar.bz2
+      - run: cd /
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE
       - run: cmake --build .
       - run: ctest
