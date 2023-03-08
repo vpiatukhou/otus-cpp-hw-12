@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: install boost
+        working-directory: /usr/local/
         run: |
-          cd /usr/local/ && \
           wget https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2 && \
           tar --bzip2 -xf boost_1_81_0.tar.bz2 && \
           rm boost_1_81_0.tar.bz2
