@@ -9,15 +9,15 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
       - name: install boost
         uses: MarkusJx/install-boost@v2.4.1
         id: install-boost
         with:
-            boost_version: 1.81.0
-            boost_install_dir: /usr/local
+          boost_version: 1.81.0
+          #boost_install_dir: /usr/local
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
       - name: build and test
         run: |
           cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE && \
