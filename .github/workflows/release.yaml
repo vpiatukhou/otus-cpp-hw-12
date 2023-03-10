@@ -14,13 +14,12 @@ jobs:
         id: install-boost
         with:
           boost_version: 1.81.0
-          #boost_install_dir: /usr/local
       - uses: actions/checkout@v2
         with:
           submodules: true
       - name: build and test
         run: |
-          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE && \
+          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE -DBoost_DIR="/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost" && \
           cmake --build . && \
           ctest
       - name: build for release

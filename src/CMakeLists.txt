@@ -1,6 +1,6 @@
 find_package(Threads REQUIRED)
 
-find_package(Boost 1.81.0 EXACT REQUIRED PATHS "/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost/boost")
+find_package(Boost 1.81.0 EXACT REQUIRED)
 
 add_library(mapreduce STATIC FileReader.cpp
                              MapReduceService.cpp
