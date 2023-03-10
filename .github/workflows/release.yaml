@@ -19,7 +19,7 @@ jobs:
           submodules: true
       - name: build and test
         run: |
-          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE -DBoost_DIR="/home/runner/work/otus-cpp-hw-12/otus-cpp-hw-12/boost" && \
+          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE && \
           cmake --build . && \
           ctest
       - name: build for release
