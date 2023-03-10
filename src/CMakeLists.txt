@@ -1,3 +1,11 @@
+include(FetchContent)
+FetchContent_Declare(
+    boost
+    GIT_REPOSITORY https://github.com/boostorg/boost.git
+    GIT_TAG master
+)
+FetchContent_MakeAvailable(boost)
+
 find_package(Threads REQUIRED)
 
 add_library(mapreduce STATIC FileReader.cpp
@@ -10,11 +18,7 @@ add_library(mapreduce STATIC FileReader.cpp
 add_executable(mapreduce_cli Main.cpp)
 set_target_properties(mapreduce_cli PROPERTIES OUTPUT_NAME mapreduce) #rename the executable to "mapreduce"
 
-if(NOT DEFINED Boost_INCLUDE_DIR)
-    find_package(Boost 1.81.0 EXACT)
-endif()
-
-target_include_directories(mapreduce PRIVATE ${Boost_INCLUDE_DIR})
+target_include_directories(mapreduce PRIVATE ${boost_SOURCE_DIR})
 
 target_link_libraries(mapreduce ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(mapreduce_cli PRIVATE mapreduce)
