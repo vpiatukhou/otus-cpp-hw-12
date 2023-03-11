@@ -1,6 +1,7 @@
 ﻿#include "MapReduceService.h"
 #include "ShortestPrefixFinder.h"
 #include "Shuffler.h"
+#include "Splitter.h"
 
 #include <cctype>
 #include <cstdint>
@@ -73,8 +74,9 @@ int main(int argc, char* argv[]) {
         return VALIDATION_ERROR;
     }
 
+    Splitter splitter(inputFile, numberOfMappers);
     Shuffler shuffler(numberOfReducers, getPartition);
-    MapReduceService mapReduceService(shuffler, inputFile, map, numberOfMappers, reduce);
+    MapReduceService mapReduceService(splitter, shuffler, map, numberOfMappers, reduce);
     mapReduceService.start();
 
     return 0;

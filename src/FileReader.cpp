@@ -19,4 +19,7 @@ namespace Homework {
         return !file.eof() && file.tellg() < endPosition;
     }
 
+    FilePosition FileReader::getEndPosition() const {
+        return endPosition;
+    }
 }

@@ -1,16 +1,15 @@
 #pragma once
 
 #include "Shuffler.h"
+#include "Splitter.h"
 #include "Types.h"
-
-#include <string>
 
 namespace Homework {
 
     class MapReduceService {
     public:
-        MapReduceService(Shuffler shuffler_,
-                         std::string inputFile_,
+        MapReduceService(Splitter splitter,
+                         Shuffler shuffler_,
                          MapFunction mapFunction_,
                          NumberOfPartitions numberOfMappers_,
                          ReduceFunction reduceFunction_);
@@ -24,9 +23,9 @@ namespace Homework {
          */
         void start();
     private:
+        Splitter splitter;
         Shuffler shuffler;
 
-        std::string inputFile;
         MapFunction mapFunction;
         NumberOfPartitions numberOfMappers;
         ReduceFunction reduceFunction;

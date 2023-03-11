@@ -1,17 +1,17 @@
 #include "MapReduceService.h"
 #include "Mapper.h"
 #include "Reducer.h"
-#include "Splitter.h"
 
 #include <memory>
+#include <string>
 #include <utility>
 
 namespace Homework {
 
-    MapReduceService::MapReduceService(Shuffler shuffler_, std::string inputFile_, MapFunction mapFunction_,
+    MapReduceService::MapReduceService(Splitter splitter_, Shuffler shuffler_, MapFunction mapFunction_,
         NumberOfPartitions numberOfMappers_, ReduceFunction reduceFunction_)
-        : shuffler(shuffler_),
-          inputFile(inputFile_),
+        : splitter(splitter_),
+          shuffler(shuffler_),
           mapFunction(mapFunction_),
           numberOfMappers(numberOfMappers_),
           reduceFunction(reduceFunction_) {
@@ -19,16 +19,14 @@ namespace Homework {
 
     void MapReduceService::start() {
         //split the given file on sections
-        auto partitionEnds = splitInputData(inputFile, numberOfMappers);
+        auto partitions = splitter.splitInputData();
 
         //create and start mappers
         std::vector<std::unique_ptr<Mapper>> mappers;
-        mappers.reserve(partitionEnds.size());
+        mappers.reserve(partitions.size());
 
-        FilePosition previousPartitionEnd = 0;
-        for (auto partitionEnd : partitionEnds) {
-            mappers.push_back(std::make_unique<Mapper>(inputFile, previousPartitionEnd, partitionEnd, mapFunction));
-            previousPartitionEnd = partitionEnd;
+        for (auto& partition : partitions) {
+            mappers.push_back(std::make_unique<Mapper>(partition, mapFunction));
         }
 
         //wait until the mappers do their work

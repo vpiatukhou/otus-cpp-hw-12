@@ -10,7 +10,7 @@ namespace Homework {
 
     class Mapper {
     public:
-        Mapper(const std::string& inputFile_, std::size_t startPosition_, std::size_t endPosition_, MapFunction map_);
+        Mapper(std::unique_ptr<FileReader>& fileReader_, MapFunction map_);
         Mapper(const Mapper&) = delete;
         Mapper(Mapper&&) = delete;
         ~Mapper() = default;
@@ -24,7 +24,7 @@ namespace Homework {
     private:
         MappedData output;
 
-        FileReader fileReader;
+        std::unique_ptr<FileReader> fileReader;
         MapFunction map;
 
         std::unique_ptr<std::thread> mapThread;

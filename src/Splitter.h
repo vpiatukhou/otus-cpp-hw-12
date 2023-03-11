@@ -1,18 +1,23 @@
 #pragma once
 
 #include "Types.h"
+#include "FileReader.h"
 
-#include <cstdint>
 #include <vector>
 #include <string>
+#include <memory>
 
 namespace Homework {
 
-    /**
-     * Split the given file into partitions.
-     * 
-     * @param inputFilepath - an absolute path to the input file
-     * @result a list of positions in the file. An each position points to the end of the section (a next charachter after '\n')
-     */
-    std::vector<FilePosition> splitInputData(const std::string& inputFilepath, NumberOfPartitions numberOfSections);
+    class Splitter {
+    public:
+        Splitter(const std::string& inputFilepath_, NumberOfPartitions numberOfPartitions_);
+
+        std::vector<std::unique_ptr<FileReader>> splitInputData();
+
+    private:
+        std::string inputFilepath;
+        NumberOfPartitions numberOfPartitions;
+    };
+
 }

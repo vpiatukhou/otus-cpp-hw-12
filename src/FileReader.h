@@ -33,6 +33,8 @@ namespace Homework {
          */
         bool hasNext();
 
+        //used by unit tests
+        FilePosition getEndPosition() const;
     private:
         std::ifstream file;
         FilePosition endPosition;

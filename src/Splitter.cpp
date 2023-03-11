@@ -11,8 +11,12 @@ namespace Homework {
         const char LINE_DELIMITER = '\n';
     }
 
-    std::vector<FilePosition> splitInputData(const std::string& inputFilepath, NumberOfPartitions numberOfPartitions) {
-        std::vector<FilePosition> result;
+    Splitter::Splitter(const std::string& inputFilepath_, NumberOfPartitions numberOfPartitions_)
+        : inputFilepath(inputFilepath_), numberOfPartitions(numberOfPartitions_) {
+    }
+
+    std::vector<std::unique_ptr<FileReader>> Splitter::splitInputData() {
+        std::vector<std::unique_ptr<FileReader>> result;
         result.reserve(numberOfPartitions);
 
         FilePosition fileSize = std::filesystem::file_size(inputFilepath);
@@ -21,7 +25,7 @@ namespace Homework {
         }
 
         if (numberOfPartitions == 1) {
-            result.push_back(fileSize);
+            result.push_back(std::make_unique<FileReader>(inputFilepath, 0, fileSize));
             return result;
         }
 
@@ -29,10 +33,9 @@ namespace Homework {
         auto partitionSizeAsDouble = std::ceil(static_cast<double>(fileSize) / numberOfPartitions - 1);
         FilePosition partitionSize = static_cast<FilePosition>(partitionSizeAsDouble);
 
-        FilePosition sectionBegin = 0;
-
         std::ifstream file(inputFilepath);
 
+        FilePosition partitionBegin = 0;
         FilePosition partitionEnd = 0;
         while (partitionEnd < fileSize) {
             partitionEnd += partitionSize;
@@ -50,7 +53,8 @@ namespace Homework {
 
             partitionEnd = file.tellg();
 
-            result.push_back(partitionEnd);
+            result.push_back(std::make_unique<FileReader>(inputFilepath, partitionBegin, partitionEnd));
+            partitionBegin = partitionEnd;
         }
 
         return result;
