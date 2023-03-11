@@ -23,7 +23,7 @@ jobs:
           cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=TRUE \
                   -DBoost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}} && \
           cmake --build . && \
-          ctest
+          ./test/mapreduce_test
         env:
           BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
       - name: build for release
