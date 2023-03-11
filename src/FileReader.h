@@ -15,14 +15,16 @@ namespace Homework {
         /**
          * A constructor.
          *
-         * @param inputFile_     - an absolute path to the file
+         * @param inputFilepath_ - a path (absolute or relative) to the input file
          * @param startPosition_ - reading starts from this position (inclusive)
          * @param endPosition_   - reading stops until this position (exclusive)
          */
-        FileReader(const std::string& inputFile_, FilePosition startPosition_, FilePosition endPosition_);
+        FileReader(const std::string& inputFilepath_, FilePosition startPosition_, FilePosition endPosition_);
 
         /**
          * Reads a line from the file.
+         *
+         * Leading and traling spaces are removed.
          *
          * @param line - the read string
          */
@@ -39,4 +41,5 @@ namespace Homework {
         std::ifstream file;
         FilePosition endPosition;
     };
+
 }

@@ -29,29 +29,33 @@ namespace Homework {
             return result;
         }
 
-        //we substract 1 from the partition size because a position is counted from 0.
-        auto partitionSizeAsDouble = std::ceil(static_cast<double>(fileSize) / numberOfPartitions - 1);
-        FilePosition partitionSize = static_cast<FilePosition>(partitionSizeAsDouble);
+        auto partitionSizeAsDouble = std::ceil(static_cast<double>(fileSize) / numberOfPartitions);
+        auto partitionSize = static_cast<FilePosition>(partitionSizeAsDouble);
 
         std::ifstream file(inputFilepath);
 
         FilePosition partitionBegin = 0;
         FilePosition partitionEnd = 0;
+
+        //The actual number of paritions can be less than the given "numberOfPartitions".
+        //This is why we stop the loop if partitionEnd equals to fileSize
         while (partitionEnd < fileSize) {
+            //Calculate an estimated end position of the partition.
+            //This is an approximate value which will be adjusted later
             partitionEnd += partitionSize;
             if (partitionEnd > fileSize) {
                 partitionEnd = fileSize;
+            } else {
+                //set the cursor to the estimated end of the section
+                file.seekg(partitionEnd);
+
+                auto remainedSize = fileSize - file.tellg();
+
+                //move the cursor to the actual end of the section
+                file.ignore(remainedSize, LINE_DELIMITER);
+
+                partitionEnd = file.tellg();
             }
-
-            //set the cursor to the estimated end of the section
-            file.seekg(partitionEnd);
-
-            auto remainedSize = fileSize - file.tellg();
-
-            //move the cursor to the actual end of the section
-            file.ignore(remainedSize, LINE_DELIMITER);
-
-            partitionEnd = file.tellg();
 
             result.push_back(std::make_unique<FileReader>(inputFilepath, partitionBegin, partitionEnd));
             partitionBegin = partitionEnd;

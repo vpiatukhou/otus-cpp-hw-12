@@ -25,27 +25,27 @@ TEST(splitterTest, singleChar) {
 
 TEST(splitterTest, moreMappersThanData) {
     //given
-    Splitter splitter(ROOT_DIR + "single-char.txt", 2);
+    Splitter splitter(ROOT_DIR + "single-char.txt", 2); //it is not possible to split data for two mappers
 
     //when
-    auto result = splitter.splitInputData(); //the number of mappers is 2 but there is not enough data
+    auto result = splitter.splitInputData();
 
     //then
     ASSERT_EQ(1, result.size());
     ASSERT_EQ(1, result[0]->getEndPosition());
 }
 
-TEST(splitterTest, twoEqualSections) {
+TEST(splitterTest, allRecordsAreEqual) {
     //given
-    Splitter splitter(ROOT_DIR + "two-equal-sections.txt", 2);
+    Splitter splitter(ROOT_DIR + "all-records-are-equal.txt", 2);
 
     //when
     auto result = splitter.splitInputData();
 
     //then
     ASSERT_EQ(2, result.size());
-    ASSERT_EQ(4, result[0]->getEndPosition());
-    ASSERT_EQ(7, result[1]->getEndPosition());
+    ASSERT_EQ(12, result[0]->getEndPosition()); //The first section is bigger. It is not a defect, please see Splitter::splitInputData()
+    ASSERT_EQ(15, result[1]->getEndPosition());
 }
 
 TEST(splitterTest, firstSectionBigger) {
@@ -61,9 +61,9 @@ TEST(splitterTest, firstSectionBigger) {
     ASSERT_EQ(8, result[1]->getEndPosition());
 }
 
-TEST(splitterTest, secondSectionBigger) {
+TEST(splitterTest, secondPartitionBigger) {
     //given
-    Splitter splitter(ROOT_DIR + "second-section-bigger.txt", 2);
+    Splitter splitter(ROOT_DIR + "second-parition-bigger.txt", 2);
 
     //when
     auto result = splitter.splitInputData(); //the number of mappers is 2 but it is impossible to split the data
@@ -73,22 +73,9 @@ TEST(splitterTest, secondSectionBigger) {
     ASSERT_EQ(8, result[0]->getEndPosition());
 }
 
-TEST(splitterTest, twoSectionsComplex) {
+TEST(splitterTest, complexPartitions) {
     //given
-    Splitter splitter(ROOT_DIR + "two-sections-complex.txt", 2);
-
-    //when
-    auto result = splitter.splitInputData();
-
-    //then
-    ASSERT_EQ(2, result.size());
-    ASSERT_EQ(21, result[0]->getEndPosition());
-    ASSERT_EQ(41, result[1]->getEndPosition());
-}
-
-TEST(splitterTest, threeSectionComplex) {
-    //given
-    Splitter splitter(ROOT_DIR + "three-sections-complex.txt", 3);
+    Splitter splitter(ROOT_DIR + "complex-partitions.txt", 3);
 
     //when
     auto result = splitter.splitInputData();

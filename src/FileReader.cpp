@@ -4,8 +4,8 @@
 
 namespace Homework {
 
-    FileReader::FileReader(const std::string& inputFile_, FilePosition startPosition_, FilePosition endPosition_)
-        : file(inputFile_), endPosition(endPosition_) {
+    FileReader::FileReader(const std::string& inputFilepath_, FilePosition startPosition_, FilePosition endPosition_)
+        : file(inputFilepath_), endPosition(endPosition_) {
 
         file.seekg(startPosition_);
     }
