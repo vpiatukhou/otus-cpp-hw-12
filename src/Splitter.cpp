@@ -41,8 +41,6 @@ namespace Homework {
         //The actual number of paritions can be less than the given "numberOfPartitions".
         //This is why we stop the loop if partitionEnd equals to fileSize
         while (partitionEnd < fileSize) {
-            std::cout << "partitionEnd=" << partitionEnd << "\tfileSize=" << fileSize << "\tpartitionSize=" << partitionSize << std::endl;
-
             //Calculate an estimated end position of the partition.
             //This is an approximate value which will be adjusted later
             partitionEnd += partitionSize;
@@ -52,12 +50,19 @@ namespace Homework {
                 //set the cursor to the estimated end of the section
                 file.seekg(partitionEnd);
 
-                auto remainedSize = fileSize - file.tellg();
-
                 //move the cursor to the actual end of the section
-                file.ignore(remainedSize, LINE_DELIMITER);
+                file.ignore(fileSize - partitionEnd, LINE_DELIMITER);
 
+                auto old = partitionEnd;
                 partitionEnd = file.tellg();
+                std::cout << "old partitionEnd=" << old << "\tpartitionEnd=" << partitionEnd << "\tfileSize=" << fileSize << std::endl;
+                if (partitionEnd == -1) {
+                    if (file.eof()) {
+                        partitionEnd = fileSize;
+                    } else {
+                        throw std::runtime_error("Error reading the file.");
+                    }
+                }
             }
 
             result.push_back(std::make_unique<FileReader>(inputFilepath, partitionBegin, partitionEnd));
