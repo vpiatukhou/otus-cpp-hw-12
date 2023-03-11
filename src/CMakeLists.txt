@@ -2,7 +2,7 @@ find_package(Threads REQUIRED)
 
 if (NOT DEFINED Boost_INCLUDE_DIR)
     find_package(Boost 1.81.0 EXACT REQUIRED)
-else()
+endif()
 
 add_library(mapreduce STATIC FileReader.cpp
                              MapReduceService.cpp
