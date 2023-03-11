@@ -55,7 +55,7 @@ namespace Homework {
 
                 auto old = partitionEnd;
                 partitionEnd = file.tellg();
-                std::cout << "old partitionEnd=" << old << "\tpartitionEnd=" << partitionEnd << "\tfileSize=" << fileSize << std::endl;
+                std::cout << "old partitionEnd=" << old << "\tpartitionEnd=" << partitionEnd << "\tpartitionSize=" << partitionSize << "\tfileSize=" << fileSize << std::endl;
                 if (partitionEnd == -1) {
                     if (file.eof()) {
                         partitionEnd = fileSize;
