@@ -18,7 +18,7 @@ namespace Homework {
     }
 
     void MapReduceService::start() {
-        //split the given file on sections
+        //split the given file on partitions
         auto partitions = splitter.splitInputData();
 
         //create and start mappers
