@@ -35,9 +35,9 @@ TEST(splitterTest, moreMappersThanData) {
     ASSERT_EQ(1, result[0]->getEndPosition());
 }
 
-TEST(splitterTest, allRecordsAreEqual) {
+TEST(splitterTest, allLinesEqual) {
     //given
-    Splitter splitter(ROOT_DIR + "all-records-are-equal.txt", 2);
+    Splitter splitter(ROOT_DIR + "all-lines-equal.txt", 2);
 
     //when
     auto result = splitter.splitInputData();
@@ -48,9 +48,9 @@ TEST(splitterTest, allRecordsAreEqual) {
     ASSERT_EQ(15, result[1]->getEndPosition());
 }
 
-TEST(splitterTest, firstSectionBigger) {
+TEST(splitterTest, firstLineBigger) {
     //given
-    Splitter splitter(ROOT_DIR + "first-section-bigger.txt", 2);
+    Splitter splitter(ROOT_DIR + "first-line-bigger.txt", 2);
 
     //when
     auto result = splitter.splitInputData();
@@ -61,12 +61,12 @@ TEST(splitterTest, firstSectionBigger) {
     ASSERT_EQ(8, result[1]->getEndPosition());
 }
 
-TEST(splitterTest, secondPartitionBigger) {
+TEST(splitterTest, secondLineBigger) {
     //given
-    Splitter splitter(ROOT_DIR + "second-parition-bigger.txt", 2);
+    Splitter splitter(ROOT_DIR + "second-line-bigger.txt", 2); //the number of mappers is 2 but it is impossible to split the data
 
     //when
-    auto result = splitter.splitInputData(); //the number of mappers is 2 but it is impossible to split the data
+    auto result = splitter.splitInputData();
 
     //then
     ASSERT_EQ(1, result.size());

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 
 namespace Homework {
 
@@ -40,6 +41,8 @@ namespace Homework {
         //The actual number of paritions can be less than the given "numberOfPartitions".
         //This is why we stop the loop if partitionEnd equals to fileSize
         while (partitionEnd < fileSize) {
+            std::cout << "partitionEnd=" << partitionEnd << "\tfileSize=" << fileSize << "\tpartitionSize=" << partitionSize << std::endl;
+
             //Calculate an estimated end position of the partition.
             //This is an approximate value which will be adjusted later
             partitionEnd += partitionSize;
