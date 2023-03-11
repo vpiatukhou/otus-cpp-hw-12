@@ -4,7 +4,7 @@
 #include <cmath>
 #include <filesystem>
 #include <fstream>
-#include <iostream>
+#include <stdexcept>
 
 namespace Homework {
 
@@ -52,14 +52,11 @@ namespace Homework {
 
                 //move the cursor to the actual end of the section
                 file.ignore(fileSize - partitionEnd, LINE_DELIMITER);
-
-                auto old = partitionEnd;
-                partitionEnd = file.tellg();
-                std::cout << "old partitionEnd=" << old << "\tpartitionEnd=" << partitionEnd << "\tpartitionSize=" << partitionSize << "\tfileSize=" << fileSize << std::endl;
-                if (partitionEnd == -1) {
-                    if (file.eof()) {
-                        partitionEnd = fileSize;
-                    } else {
+                if (file.eof()) {
+                    partitionEnd = fileSize;
+                } else {
+                    partitionEnd = file.tellg();
+                    if (partitionEnd == -1) {
                         throw std::runtime_error("Error reading the file.");
                     }
                 }
