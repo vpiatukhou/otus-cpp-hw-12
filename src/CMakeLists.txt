@@ -1,6 +1,8 @@
 find_package(Threads REQUIRED)
 
-#find_package(Boost 1.81.0 EXACT REQUIRED PATHS /home/runner/boost/tools/boost_install)
+if (NOT DEFINED Boost_INCLUDE_DIR)
+    find_package(Boost 1.81.0 EXACT REQUIRED)
+else()
 
 add_library(mapreduce STATIC FileReader.cpp
                              MapReduceService.cpp

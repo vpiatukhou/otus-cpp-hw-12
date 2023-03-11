@@ -28,7 +28,8 @@ jobs:
           BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
       - name: build for release
         run: |
-          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=FALSE && \
+          cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_TESTS=FALSE \
+                  -DBoost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}} && \
           cmake --build . --target package
       - name: create release
         id: create_release
