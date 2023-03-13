@@ -22,7 +22,7 @@ namespace Homework {
         const std::string INVALID_NUM_OF_THREADS_ARG = " must be a positive integer number.";
     }
 
-    NumberOfPartitions stringToNumberOfThreads(std::string value) {
+    NumberOfPartitions stringToNumberOfThreads(const std::string& value) {
         for (auto& ch : value) {
             if (!std::isdigit(ch)) {
                 throw std::invalid_argument(INVALID_NUM_OF_THREADS_ARG);

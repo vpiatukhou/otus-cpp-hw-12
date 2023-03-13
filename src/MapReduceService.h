@@ -19,7 +19,7 @@ namespace Homework {
          *
          * The result will be written into files the current working directory.
          *
-         * The names of the files follow the pattern: "out-<a number of partition>.txt".
+         * The names of the files follow the pattern: "out-NUMBER_OF_PARTITIONS.txt".
          */
         void start();
     private:
