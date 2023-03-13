@@ -2,10 +2,9 @@
 
 #include "gmock/gmock.h"
 
-using namespace Homework;
-using ::testing::UnorderedElementsAre;
-
-namespace HomeworkTest {
+namespace {
+    using namespace Homework;
+    using ::testing::UnorderedElementsAre;
 
     std::size_t simplePartitioner(const std::string& key, const MappedValue& value, std::size_t numberOfPartitions) {
         return 0;
@@ -23,7 +22,7 @@ namespace HomeworkTest {
     }
 }
 
-TEST(shufflerTest, oneMapperOneReducer) {
+TEST(ShufflerTest, oneMapperOneReducer) {
     //given
     MappedData mapper;
     mapper["a"] = { "aa", "ay" };
@@ -37,7 +36,7 @@ TEST(shufflerTest, oneMapperOneReducer) {
     std::vector<MappedData> output;
 
     //when
-    Shuffler shuffler(numberOfReducers, HomeworkTest::simplePartitioner);
+    Shuffler shuffler(numberOfReducers, simplePartitioner);
     shuffler.shuffle(input, output);
 
     //then
@@ -45,7 +44,7 @@ TEST(shufflerTest, oneMapperOneReducer) {
     ASSERT_TRUE(mapper == output[0]);
 }
 
-TEST(shufflerTest, mergeAndSplitOnPartitions) {
+TEST(ShufflerTest, mergeAndSplitOnPartitions) {
     //given
     MappedData mapper1;
     mapper1["a"] = { "ax", "az" };
@@ -74,7 +73,7 @@ TEST(shufflerTest, mergeAndSplitOnPartitions) {
     std::vector<MappedData> output;
 
     //when
-    Shuffler shuffler(numberOfReducers, HomeworkTest::abcPartitioner);
+    Shuffler shuffler(numberOfReducers, abcPartitioner);
     shuffler.shuffle(input, output);
 
     //then

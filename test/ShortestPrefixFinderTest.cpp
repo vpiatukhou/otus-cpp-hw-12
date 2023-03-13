@@ -2,11 +2,12 @@
 
 #include "gmock/gmock.h"
 
-using namespace Homework;
-using ::testing::UnorderedElementsAre;
+namespace {
+    using namespace Homework;
+    using ::testing::UnorderedElementsAre;
+}
 
-TEST(shortestPrefixFinderTest, mapPositive) {
-
+TEST(ShortestPrefixFinderTest, mapPositive) {
     //given
     MappedData output;
 
@@ -27,7 +28,7 @@ TEST(shortestPrefixFinderTest, mapPositive) {
     ASSERT_THAT(output["aayzz"], UnorderedElementsAre("aayzz"));
 }
 
-TEST(shortestPrefixFinderTest, reducePositive) {
+TEST(ShortestPrefixFinderTest, reducePositive) {
     //given
     ReduceOutput output;
     MappedValue value1 = {"aaxx", "aayy", "aayzz"};

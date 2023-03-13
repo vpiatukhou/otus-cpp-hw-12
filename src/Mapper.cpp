@@ -18,7 +18,9 @@ namespace Homework {
         std::string line;
         while (fileReader->hasNext()) {
             fileReader->readLine(line);
-            map(line, output);
+            if (!line.empty()) {
+                map(line, output);
+            }
         }
     }
 
