@@ -19,7 +19,7 @@ namespace Homework {
     using NumberOfPartitions = unsigned int;
 
     /**
-     * A position in the file stream.
+     * A position in the file.
      */
     using FilePosition = std::streampos;
 
